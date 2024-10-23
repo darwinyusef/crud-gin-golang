@@ -1,7 +1,7 @@
 package utils
 
 import (
-	"github.com/crud-gin-golang/main/models"
+	"github.com/darwinyusef/crud-gin-golang/models"
 )
 
 func LinearSearch(users []models.User, targetID string) int {

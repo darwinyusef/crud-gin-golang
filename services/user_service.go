@@ -1,9 +1,9 @@
 package services
 
 import (
-	"github.com/crud-gin-golang/main/models"
-	"github.com/crud-gin-golang/main/repositories"
-	"github.com/crud-gin-golang/main/utils"
+	"github.com/darwinyusef/crud-gin-golang/models"
+	"github.com/darwinyusef/crud-gin-golang/repositories"
+	"github.com/darwinyusef/crud-gin-golang/utils"
 )
 
 type UserService struct{}
@@ -25,7 +25,14 @@ func (us UserService) UpdateUser(id string, user models.User) bool {
 }
 
 func (us UserService) DeleteUser(id string) bool {
-	return repositories.DeleteUser(id)
+	users := repositories.GetAllUsers()
+	index := utils.LinearSearch(users, id)
+	if index != -1 {
+		users = append(users[:index], users[index+1:]...)
+		repositories.SaveUsers(users)
+		return true
+	}
+	return false
 }
 
 func (us UserService) FindUserByID(id string) (models.User, bool) {

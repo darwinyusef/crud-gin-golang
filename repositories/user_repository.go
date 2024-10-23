@@ -1,7 +1,11 @@
 package repositories
 
 import (
-	"github.com/crud-gin-golang/main/models"
+	"encoding/json"
+	"io/ioutil"
+	"log"
+
+	"github.com/darwinyusef/crud-gin-golang/models"
 )
 
 var users = []models.User{
@@ -34,6 +38,16 @@ func UpdateUser(id string, user models.User) bool {
 		}
 	}
 	return false
+}
+
+func SaveUsers(users []models.User) {
+	// Implementación para guardar los usuarios
+	// Por ejemplo:
+	var jsonBytes, err = json.Marshal(users)
+	if err != nil {
+		log.Fatal(err)
+	}
+	ioutil.WriteFile("users.json", jsonBytes, 0644)
 }
 
 func DeleteUser(id string) bool {
